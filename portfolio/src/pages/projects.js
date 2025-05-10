@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import ProjectCard from '../components/ui/ProjectCard';
 import { projects } from '../lib/data/projects';
-import '../../styles/project.css';
+
 
 export default function Projects() {
     const [filter, setFilter] = useState('all');
