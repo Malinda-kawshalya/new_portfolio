@@ -1,0 +1,527 @@
+/* Space-themed custom CSS with a futuristic aesthetic */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(180deg, #0a0a23 0%, #1c2526 100%);
+  color: #e0e0e0;
+  overflow-x: hidden;
+}
+
+.layout {
+  position: relative;
+  min-height: 100vh;
+}
+
+.space-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+.main-content {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+}
+
+/* Navbar */
+
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  margin-top: 2rem;
+}
+
+.footer-links a {
+  color: #00ffcc;
+  margin: 0 1rem;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #ff00ff;
+  text-shadow: 0 0 5px #ff00ff;
+}
+
+/* Home Page */
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.hero {
+  animation: fadeIn 2s ease-in;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  color: #00ffcc;
+  text-shadow: 0 0 15px #00ffcc;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: #00ffcc;
+  color: #0a0a23;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: bold;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cta-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #00ffcc;
+}
+
+/* Projects Page */
+/* Space-themed Projects Page with Advanced CSS and Animations */
+
+/* Cosmic Background */
+.space-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.stars, .twinkling, .clouds {
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.stars {
+  background: #000 url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxyYWRpYWxHcmFkaWVudCBpZD0iZzEiIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSIgZng9IjUwJSIgZnk9IjUwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwMCIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzAwMCIvPjxnIGZpbGw9InVybCgjZzEpIj48Y2lyY2xlIGN4PSIyNSUiIGN5PSIzMCUiIHI9IjAuMjUlIiBvcGFjaXR5PSIwLjgiLz48Y2lyY2xlIGN4PSI1MCUiIGN5PSI0NSUiIHI9IjAuMzUlIiBvcGFjaXR5PSIwLjkiLz48Y2lyY2xlIGN4PSI3NSUiIGN5PSIxMCUiIHI9IjAuMiUiIG9wYWNpdHk9IjAuNyIvPjxjaXJjbGUgY3g9IjE1JSIgY3k9IjY1JSIgcj0iMC4yNSUiIG9wYWNpdHk9IjAuOCIvPjxjaXJjbGUgY3g9IjgwJSIgY3k9IjgwJSIgcj0iMC4zJSIgb3BhY2l0eT0iMC43NSIvPjxjaXJjbGUgY3g9IjQ1JSIgY3k9IjIwJSIgcj0iMC4xNSUiIG9wYWNpdHk9IjAuOSIvPjxjaXJjbGUgY3g9IjYwJSIgY3k9IjY1JSIgcj0iMC4yJSIgb3BhY2l0eT0iMC44Ii8+PGNpcmNsZSBjeD0iNSUiIGN5PSIzMCUiIHI9IjAuMjUlIiBvcGFjaXR5PSIwLjgiLz48Y2lyY2xlIGN4PSI5NSUiIGN5PSI0NSUiIHI9IjAuMTUlIiBvcGFjaXR5PSIwLjkiLz48Y2lyY2xlIGN4PSIyMCUiIGN5PSI5MCUiIHI9IjAuMyUiIG9wYWNpdHk9IjAuOCIvPjxjaXJjbGUgY3g9IjQwJSIgY3k9Ijc1JSIgcj0iMC4yJSIgb3BhY2l0eT0iMC43NSIvPjxjaXJjbGUgY3g9IjcwJSIgY3k9IjM1JSIgcj0iMC4yNSUiIG9wYWNpdHk9IjAuOCIvPjxjaXJjbGUgY3g9IjEwJSIgY3k9IjUwJSIgcj0iMC4yJSIgb3BhY2l0eT0iMC44NSIvPjxjaXJjbGUgY3g9IjkwJSIgY3k9IjE1JSIgcj0iMC4yNSUiIG9wYWNpdHk9IjAuNyIvPjxjaXJjbGUgY3g9IjM1JSIgY3k9IjkwJSIgcj0iMC4xNSUiIG9wYWNpdHk9IjAuOCIvPjxjaXJjbGUgY3g9IjU1JSIgY3k9IjUlIiByPSIwLjI1JSIgb3BhY2l0eT0iMC43NSIvPjxjaXJjbGUgY3g9IjYwJSIgY3k9IjUwJSIgcj0iMC4yJSIgb3BhY2l0eT0iMC44Ii8+PC9nPjwvc3ZnPg==') repeat top center;
+  z-index: 0;
+}
+
+.twinkling {
+  background: transparent url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxyYWRpYWxHcmFkaWVudCBpZD0iZzEiIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSIgZng9IjUwJSIgZnk9IjUwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwMCIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idHJhbnNwYXJlbnQiLz48ZyBmaWxsPSJ1cmwoI2cxKSI+PGNpcmNsZSBjeD0iMjUlIiBjeT0iMzAlIiByPSIwLjQlIiBvcGFjaXR5PSIwLjgiLz48Y2lyY2xlIGN4PSI1MCUiIGN5PSI0NSUiIHI9IjAuNSUiIG9wYWNpdHk9IjAuOSIvPjxjaXJjbGUgY3g9Ijc1JSIgY3k9IjEwJSIgcj0iMC4zJSIgb3BhY2l0eT0iMC43Ii8+PGNpcmNsZSBjeD0iMTUlIiBjeT0iNjUlIiByPSIwLjQlIiBvcGFjaXR5PSIwLjgiLz48Y2lyY2xlIGN4PSI4MCUiIGN5PSI4MCUiIHI9IjAuNSUiIG9wYWNpdHk9IjAuNzUiLz48Y2lyY2xlIGN4PSI0NSUiIGN5PSIyMCUiIHI9IjAuMyUiIG9wYWNpdHk9IjAuOSIvPjxjaXJjbGUgY3g9IjYwJSIgY3k9IjY1JSIgcj0iMC40JSIgb3BhY2l0eT0iMC44Ii8+PGNpcmNsZSBjeD0iNSUiIGN5PSIzMCUiIHI9IjAuNCUiIG9wYWNpdHk9IjAuOCIvPjxjaXJjbGUgY3g9Ijk1JSIgY3k9IjQ1JSIgcj0iMC4zJSIgb3BhY2l0eT0iMC45Ii8+PGNpcmNsZSBjeD0iMjAlIiBjeT0iOTAlIiByPSIwLjQlIiBvcGFjaXR5PSIwLjgiLz48Y2lyY2xlIGN4PSI0MCUiIGN5PSI3NSUiIHI9IjAuMyUiIG9wYWNpdHk9IjAuNzUiLz48Y2lyY2xlIGN4PSI3MCUiIGN5PSIzNSUiIHI9IjAuNCUiIG9wYWNpdHk9IjAuOCIvPjwvZz48L3N2Zz4=') repeat top center;
+  z-index: 1;
+  animation: move-twinkle 200s linear infinite;
+}
+
+.clouds {
+  background: transparent url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxyYWRpYWxHcmFkaWVudCBpZD0iZzEiIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSJyZ2JhKDI1NSwyNTUsMjU1LDApIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idHJhbnNwYXJlbnQiLz48ZyBvcGFjaXR5PSIwLjMiPjxlbGxpcHNlIGN4PSIyMCUiIGN5PSI0MCUiIHJ4PSIyMCUiIHJ5PSI3JSIgZmlsbD0idXJsKCNnMSkiIHRyYW5zZm9ybT0icm90YXRlKDEwKSIvPjxlbGxpcHNlIGN4PSI3MCUiIGN5PSIyMCUiIHJ4PSIyNSUiIHJ5PSI1JSIgZmlsbD0idXJsKCNnMSkiIHRyYW5zZm9ybT0icm90YXRlKC01KSIvPjxlbGxpcHNlIGN4PSI1MCUiIGN5PSI3MCUiIHJ4PSIzMCUiIHJ5PSI2JSIgZmlsbD0idXJsKCNnMSkiIHRyYW5zZm9ybT0icm90YXRlKDgpIi8+PC9nPjwvc3ZnPg==') repeat top center;
+  z-index: 2;
+  opacity: 0.3;
+  animation: move-clouds 150s linear infinite;
+}
+
+@keyframes move-twinkle {
+  from { background-position: 0 0; }
+  to { background-position: 10000px 5000px; }
+}
+
+@keyframes move-clouds {
+  from { background-position: 0 0; }
+  to { background-position: 10000px 0; }
+}
+
+.shooting-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.shooting-star {
+  position: absolute;
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(65,220,255,0) 100%);
+  animation: shooting-star 5s linear infinite;
+  opacity: 0;
+}
+
+@keyframes shooting-star {
+  0% {
+    transform: translateX(0) translateY(0) rotate(45deg);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  20% {
+    transform: translateX(800px) translateY(-800px) rotate(45deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(800px) translateY(-800px) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* Cosmic Hero Section */
+.cosmic-hero {
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1500px;
+}
+
+.hero-planet {
+  position: absolute;
+  top: 80%;
+  left: 70%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #1e3b70 0%, #0a1e4a 70%, #061233 100%);
+  box-shadow: 
+    inset 16px -10px 50px rgba(255, 255, 255, 0.2),
+    inset -3px 3px 20px rgba(0, 0, 0, 0.5),
+    0 0 50px rgba(65, 190, 255, 0.3);
+  transform: translateZ(-100px);
+  z-index: 1;
+  opacity: 0.7;
+  animation: rotate-planet 60s linear infinite;
+}
+
+.hero-rings {
+  position: absolute;
+  top: 80%;
+  left: 70%;
+  width: 400px;
+  height: 100px;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(138, 255, 219, 0.5);
+  border: 4px solid rgba(134, 255, 234, 0.1);
+  transform: translateZ(-90px) rotateX(75deg);
+  z-index: 0;
+  opacity: 0.5;
+  animation: rotate-rings 30s linear infinite;
+}
+
+@keyframes rotate-planet {
+  from { transform: translateZ(-100px) rotate(0deg); }
+  to { transform: translateZ(-100px) rotate(360deg); }
+}
+
+@keyframes rotate-rings {
+  from { transform: translateZ(-90px) rotateX(75deg) rotate(0deg); }
+  to { transform: translateZ(-90px) rotateX(75deg) rotate(360deg); }
+}
+
+.cosmic-title {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+.title-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(30px);
+  background: radial-gradient(circle at center, rgba(0, 247, 255, 0.5) 0%, rgba(121, 40, 202, 0.2) 50%, rgba(0, 0, 0, 0) 70%);
+  z-index: -1;
+  transform: translateZ(10px);
+  opacity: 0.8;
+  animation: pulse-glow 5s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-glow {
+  0% { opacity: 0.4; transform: scale(0.9); }
+  100% { opacity: 0.8; transform: scale(1.1); }
+}
+
+.orbit-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 2rem auto;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(100, 255, 218, 0.3);
+  animation: orbit-rotate linear infinite;
+}
+
+.orbit-1 {
+  width: 100px;
+  height: 100px;
+  animation-duration: 10s;
+}
+
+.orbit-2 {
+  width: 150px;
+  height: 150px;
+  animation-duration: 20s;
+}
+
+.orbit-3 {
+  width: 200px;
+  height: 200px;
+  animation-duration: 30s;
+}
+
+.satellite {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #43e97b, #38f9d7);
+  transform: translateX(-50%);
+  box-shadow: 0 0 15px rgba(62, 243, 207, 0.8);
+  animation: satellite-pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes orbit-rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes satellite-pulse {
+  0% { box-shadow: 0 0 10px rgba(62, 243, 207, 0.6); }
+  100% { box-shadow: 0 0 25px rgba(62, 243, 207, 1); }
+}
+
+/* Filter Section */
+.filter-container {
+  background: linear-gradient(45deg, rgba(10, 25, 47, 0.7), rgba(10, 25, 47, 0.4));
+  border: 1px solid rgba(100, 255, 218, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 10px rgba(100, 255, 218, 0.1);
+  transition: all 0.3s ease;
+}
+
+.filter-container:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 15px rgba(100, 255, 218, 0.2);
+}
+
+.cosmic-button {
+  position: relative;
+  background: rgba(10, 25, 47, 0.5);
+  border: 1px solid rgba(100, 255, 218, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.cosmic-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(65, 234, 212, 0.2), rgba(65, 234, 212, 0));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+
+/* About Page */
+.about-page {
+  padding: 6rem 2rem;
+  text-align: center;
+}
+
+.about-section {
+  max-width: 800px;
+  margin: 0 auto 4rem;
+}
+
+.profile-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 3px solid #00ffcc;
+  margin-bottom: 2rem;
+}
+
+.about-section h1 {
+  font-size: 2.5rem;
+  color: #00ffcc;
+  margin-bottom: 1rem;
+}
+
+.about-section p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.skills-section h2 {
+  font-size: 2rem;
+  color: #00ffcc;
+  margin-bottom: 2rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.skill-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+
+.skill-item:hover {
+  transform: scale(1.1);
+}
+
+.skill-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 0.5rem;
+}
+
+.skill-item span {
+  font-size: 1rem;
+}
+
+/* Contact Page */
+.contact-page {
+  padding: 6rem 2rem;
+  text-align: center;
+}
+
+.contact-page h1 {
+  font-size: 2.5rem;
+  color: #00ffcc;
+  margin-bottom: 1rem;
+}
+
+.contact-page p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 1.1rem;
+  color: #00ffcc;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #00ffcc;
+  border-radius: 5px;
+  color: #e0e0e0;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.form-submit {
+  padding: 1rem 2rem;
+  background: #00ffcc;
+  color: #0a0a23;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.form-submit:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #00ffcc;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: fadeIn 1s ease-in forwards;
+}
+
+/* Three.js Components */
+.planet,
+.stars {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
