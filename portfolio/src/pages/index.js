@@ -1,110 +1,129 @@
-import { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Float, PerspectiveCamera, Text3D, Center } from '@react-three/drei';
-import { EffectComposer, Bloom, ChromaticAberration } from '@react-three/postprocessing';
+import { useGLTF, Stars, OrbitControls, Environment } from '@react-three/drei';
 import * as THREE from 'three';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import dynamic from 'next/dynamic';
+import Footer from '../components/layout/Footer';
+import '../styles/home.css';
 
-// 3D Models and Components
-function FloatingLaptop(props) {
+// Dynamically import GSAP to avoid SSR issues
+const GSAPComponent = dynamic(() => 
+  import('../components/GSAPComponent').then(mod => mod.default), 
+  { ssr: false }
+);
+
+// Enhanced Space Station component
+function SpaceStation({ mouse }) {
   const mesh = useRef();
+  const group = useRef();
+  const { scene } = useGLTF('/models/space_station.glb');
   
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const t = state.clock.getElapsedTime();
-    mesh.current.rotation.y = Math.sin(t / 4) / 4;
-    mesh.current.position.y = Math.sin(t / 1.5) / 10;
+    group.current.rotation.y += delta * 0.1;
+    group.current.rotation.x = THREE.MathUtils.lerp(
+      group.current.rotation.x,
+      mouse.current.y * 0.2,
+      0.1
+    );
+    group.current.rotation.z = THREE.MathUtils.lerp(
+      group.current.rotation.z,
+      mouse.current.x * 0.2,
+      0.1
+    );
+    
+    // Animate individual parts
+    if (mesh.current && mesh.current.children) {
+      mesh.current.children.forEach((child, i) => {
+        child.rotation.y += Math.sin(t + i) * 0.01;
+      });
+    }
   });
 
   return (
-    <group {...props} dispose={null}>
-      <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
-        <group ref={mesh}>
-          {/* Base of laptop */}
-          <mesh position={[0, 0, 0]} castShadow>
-            <boxGeometry args={[1.2, 0.1, 0.8]} />
-            <meshStandardMaterial color="#333" />
-          </mesh>
-          
-          {/* Screen of laptop */}
-          <mesh position={[0, 0.3, -0.3]} rotation={[Math.PI/6, 0, 0]} castShadow>
-            <boxGeometry args={[1.1, 0.7, 0.05]} />
-            <meshStandardMaterial color="#222" />
-          </mesh>
-          
-          {/* Screen display */}
-          <mesh position={[0, 0.3, -0.27]} rotation={[Math.PI/6, 0, 0]} castShadow>
-            <planeGeometry args={[1, 0.6]} />
-            <meshStandardMaterial color="#1E90FF" emissive="#0066CC" emissiveIntensity={0.5} />
-          </mesh>
-        </group>
-      </Float>
+    <group ref={group} scale={[0.5, 0.5, 0.5]}>
+      <primitive ref={mesh} object={scene} />
+      <pointLight intensity={2} position={[5, 5, 5]} color="#00ffcc" />
     </group>
   );
 }
 
-function FloatingBooks(props) {
-  const group = useRef();
+// Enhanced Star Field with dynamic movement
+function StarField({ mouse }) {
+  const starsRef = useRef();
   
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
-    group.current.rotation.y = Math.sin(t / 3) / 3;
-    group.current.position.y = Math.sin(t / 2) / 15;
+    starsRef.current.rotation.y += mouse.current.x * 0.001;
+    starsRef.current.rotation.x += mouse.current.y * 0.001;
+    starsRef.current.position.z = Math.sin(t * 0.1) * 2;
   });
 
   return (
-    <Float speed={2} rotationIntensity={0.3} floatIntensity={0.6}>
-      <group ref={group} {...props}>
-        <mesh position={[0, 0, 0]} castShadow>
-          <boxGeometry args={[1, 0.1, 0.7]} />
-          <meshStandardMaterial color="#4285F4" />
-        </mesh>
-        <mesh position={[0, 0.15, 0]} castShadow>
-          <boxGeometry args={[0.9, 0.1, 0.65]} />
-          <meshStandardMaterial color="#DB4437" />
-        </mesh>
-        <mesh position={[0, 0.3, 0]} castShadow>
-          <boxGeometry args={[0.95, 0.1, 0.68]} />
-          <meshStandardMaterial color="#F4B400" />
-        </mesh>
-      </group>
-    </Float>
+    <Stars
+      ref={starsRef}
+      radius={150}
+      depth={80}
+      count={8000}
+      factor={6}
+      saturation={1}
+      fade
+      speed={2}
+    />
   );
 }
 
-function ParticleField() {
-  const count = 1000;
-  const [positions, colors] = useMemo(() => {
+// Interactive Particle System
+function FloatingParticles({ mouse }) {
+  const particlesRef = useRef();
+  const count = 200;
+  const [positions] = useState(() => {
     const positions = new Float32Array(count * 3);
-    const colors = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 40;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 40;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
+    }
+    return positions;
+  });
+
+  useFrame((state) => {
+    const time = state.clock.getElapsedTime();
+    const positions = particlesRef.current.geometry.attributes.position.array;
     
     for (let i = 0; i < count; i++) {
       const i3 = i * 3;
-      // Position
-      positions[i3] = (Math.random() - 0.5) * 20;
-      positions[i3 + 1] = (Math.random() - 0.5) * 20;
-      positions[i3 + 2] = (Math.random() - 0.5) * 20;
+      const x = positions[i3];
+      const y = positions[i3 + 1];
+      const z = positions[i3 + 2];
       
-      // Color
-      colors[i3] = Math.random() * 0.5 + 0.5; // r
-      colors[i3 + 1] = Math.random() * 0.5 + 0.5; // g
-      colors[i3 + 2] = Math.random() * 0.5 + 0.5; // b
+      // Add mouse interaction
+      const dx = x - mouse.current.x * 20;
+      const dy = y - mouse.current.y * 20;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      
+      positions[i3 + 1] += Math.sin(time + i) * 0.02;
+      if (dist < 10) {
+        positions[i3] += dx * 0.01;
+        positions[i3 + 1] += dy * 0.01;
+      }
     }
-    
-    return [positions, colors];
-  }, [count]);
-  
-  const pointsRef = useRef();
-  
-  useFrame((state) => {
-    const time = state.clock.getElapsedTime();
-    pointsRef.current.rotation.y = time * 0.05;
-    pointsRef.current.rotation.z = time * 0.03;
+    particlesRef.current.geometry.attributes.position.needsUpdate = true;
   });
-  
+
+  // Lazy load texture to avoid SSR issues
+  const [texture, setTexture] = useState(null);
+  useEffect(() => {
+    new THREE.TextureLoader().load('/particle.png', loadedTexture => {
+      setTexture(loadedTexture);
+    });
+  }, []);
+
   return (
-    <points ref={pointsRef}>
+    <points ref={particlesRef}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
@@ -112,376 +131,387 @@ function ParticleField() {
           array={positions}
           itemSize={3}
         />
-        <bufferAttribute
-          attach="attributes-color"
-          count={count}
-          array={colors}
-          itemSize={3}
-        />
       </bufferGeometry>
       <pointsMaterial
-        size={0.05}
-        sizeAttenuation={true}
-        vertexColors
+        size={0.15}
+        color="#00ffcc"
         transparent
         opacity={0.8}
+        sizeAttenuation
+        map={texture}
       />
     </points>
   );
 }
 
-function FloatingName({ text }) {
-  return (
-    <Float speed={1} rotationIntensity={0.1} floatIntensity={0.2}>
-      <Center>
-        <Text3D
-          font="/fonts/helvetiker_regular.typeface.json"
-          size={0.5}
-          height={0.1}
-          curveSegments={12}
-          bevelEnabled
-          bevelThickness={0.02}
-          bevelSize={0.02}
-          bevelOffset={0}
-          bevelSegments={5}
-        >
-          {text}
-          <meshStandardMaterial 
-            color="#8A2BE2" 
-            emissive="#4B0082"
-            metalness={0.8}
-            roughness={0.2}
-          />
-        </Text3D>
-      </Center>
-    </Float>
-  );
-}
-
-function Scene({ scrollY }) {
-  const { camera } = useThree();
-  const cameraPositionZ = useTransform(scrollY, [0, 1000], [5, 10]);
+// Enhanced Skill Item with hover animations
+const SkillItem = ({ icon, name, delay = 0 }) => {
+  const ref = useRef();
   
   useEffect(() => {
-    const unsubscribeZ = cameraPositionZ.onChange(v => {
-      camera.position.z = v;
-    });
+    // Only run on client side
+    if (typeof window === 'undefined') return;
+    
+    const element = ref.current;
+    
+    const handleMouseEnter = () => {
+      element.style.transform = 'scale(1.05)';
+      const iconElement = element.querySelector('.skill-icon');
+      if (iconElement) {
+        iconElement.style.transition = 'transform 0.5s ease';
+        iconElement.style.transform = 'rotate(360deg)';
+      }
+    };
+    
+    const handleMouseLeave = () => {
+      element.style.transform = 'scale(1)';
+    };
+    
+    element.addEventListener('mouseenter', handleMouseEnter);
+    element.addEventListener('mouseleave', handleMouseLeave);
     
     return () => {
-      unsubscribeZ();
+      element.removeEventListener('mouseenter', handleMouseEnter);
+      element.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [cameraPositionZ, camera]);
-  
-  return (
-    <>
-      <ambientLight intensity={0.5} />
-      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} />
-      
-      <FloatingName text="Malinda Kawshalya" position={[0, 2, 0]} />
-      <FloatingLaptop position={[-2, 0, 0]} />
-      <FloatingBooks position={[2, 0, 0]} />
-      <ParticleField />
-      
-      <OrbitControls 
-        enableZoom={false} 
-        enablePan={false}
-        autoRotate
-        autoRotateSpeed={0.5}
-        maxPolarAngle={Math.PI / 2}
-        minPolarAngle={Math.PI / 3}
-      />
-      
-      <EffectComposer>
-        <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.9} height={300} />
-        <ChromaticAberration offset={[0.0005, 0.0005]} />
-      </EffectComposer>
-    </>
-  );
-}
-
-export default function Home() {
-  const { scrollY } = useScroll();
-  const containerRef = useRef(null);
-  const aboutRef = useRef(null);
-  const projectsRef = useRef(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  
-  useEffect(() => {
-    // Simulate loading of 3D assets
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 2000);
-    
-    return () => clearTimeout(timer);
   }, []);
-  
-  // Personal Information
-  const personalInfo = {
-    name: "MALINDA KAWSHALYA",
-    title: "Computer Science Undergraduate",
-    university: "NSBM Green University",
-    location: "Sri Lanka",
-    year: "3rd Year",
-    skills: ["React", "Three.js", "JavaScript", "WebGL", "UI/UX Design", "3D Modeling"],
-    bio: "I'm a passionate Computer Science student with a focus on interactive web experiences and 3D graphics. Currently exploring the intersection of art and technology to create immersive digital solutions."
-  };
-  
-  // Projects
-  const projects = [
-    {
-      id: 1,
-      title: "Interactive Learning Platform",
-      description: "A 3D educational platform using WebGL and Three.js",
-      tech: ["React", "Three.js", "Node.js"],
-    },
-    {
-      id: 2,
-      title: "Student Portfolio",
-      description: "A personal showcase featuring advanced animations and 3D elements",
-      tech: ["Next.js", "Three.js", "GSAP"],
-    },
-    {
-      id: 3,
-      title: "AR Campus Guide",
-      description: "Augmented reality application for university navigation",
-      tech: ["React Native", "AR.js", "Firebase"],
-    },
-  ];
-  
+
+  return (
+    <motion.div
+      ref={ref}
+      className="skill-item"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay }}
+    >
+      <div className="skill-icon">{icon}</div>
+      <p>{name}</p>
+    </motion.div>
+  );
+};
+
+// Enhanced Project Card
+const ProjectCard = ({ title, description, image, link, delay = 0 }) => {
+  const ref = useRef();
+
+  return (
+    <motion.div
+      ref={ref}
+      className="project-card"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay }}
+    >
+      <div className="project-image">
+        <div
+          className="image-placeholder"
+          style={{ background: `linear-gradient(45deg, #00ffcc, #ff00ff)` }}
+        />
+      </div>
+      <div className="project-content">
+        <h3>{title}</h3>
+        <p>{description}</p>
+        <Link href={link} className="project-link">
+          View Project
+        </Link>
+      </div>
+    </motion.div>
+  );
+};
+
+// Loading Animation Component
+const LoadingAnimation = () => (
+  <motion.div
+    className="loading-screen"
+    initial={{ opacity: 1 }}
+    animate={{ opacity: 0 }}
+    transition={{ duration: 1, delay: 2 }}
+  >
+    <div className="loading-spinner">
+      <div className="orbit">
+        <div className="planet"></div>
+      </div>
+    </div>
+  </motion.div>
+);
+
+// Main scene component with Three.js elements
+const Scene = ({ mouse }) => {
+  return (
+    <Canvas camera={{ position: [0, 0, 15], fov: 70 }}>
+      <ambientLight intensity={0.8} />
+      <directionalLight position={[10, 10, 5]} intensity={1.5} />
+      <Suspense fallback={null}>
+        <SpaceStation mouse={mouse} />
+      </Suspense>
+      <StarField mouse={mouse} />
+      <FloatingParticles mouse={mouse} />
+      <Environment preset="sunset" />
+      <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
+    </Canvas>
+  );
+};
+
+// Import Suspense separately to avoid bundling issues
+const Suspense = dynamic(() => 
+  Promise.resolve(React.Suspense),
+  { ssr: false }
+);
+
+// Main ThreeJS Hero component
+const ThreeJSHero = dynamic(() => Promise.resolve(({ mouse }) => (
+  <div className="hero-canvas">
+    <Suspense fallback={<div className="loading-fallback">Loading 3D Scene...</div>}>
+      <Scene mouse={mouse} />
+    </Suspense>
+  </div>
+)), { ssr: false });
+
+// Main Home Component
+export default function Home() {
+  const { scrollYProgress } = useScroll();
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.8]);
+  const titleY = useTransform(scrollYProgress, [0, 0.3], [0, -150]);
+  const mouse = useRef({ x: 0, y: 0 });
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    
+    // Mouse movement handler
+    const handleMouseMove = (e) => {
+      mouse.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    // Simulate loading
+    setTimeout(() => setIsLoaded(true), 2500);
+
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
     <>
       <Head>
-        <title>{personalInfo.name} | Student Portfolio</title>
-        <meta name="description" content={`Portfolio website for ${personalInfo.name}, ${personalInfo.title}`} />
-        <link rel="icon" href="/favicon.ico" />
+        <title>Malinda Kawshalya | Cosmic Portfolio</title>
+        <meta name="description" content="Interactive web developer creating cosmic digital experiences" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap"
+          rel="stylesheet"
+        />
       </Head>
-      
-      {/* Loading Screen */}
-      <motion.div 
-        className="loading-screen"
-        initial={{ opacity: 1 }}
-        animate={{ opacity: isLoaded ? 0 : 1, pointerEvents: isLoaded ? 'none' : 'all' }}
-        transition={{ duration: 1 }}
+
+      {!isLoaded && <LoadingAnimation />}
+
+      {/* Hero Section */}
+      <motion.section
+        className="hero-section"
+        style={{ opacity: heroOpacity, scale: heroScale }}
       >
-        <div className="loader"></div>
-        <motion.h2 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-        >
-          Loading Experience
-        </motion.h2>
-      </motion.div>
-      
-      <div className="portfolio-container" ref={containerRef}>
-        {/* 3D Hero Section */}
-        <section className="hero-section">
-          <div className="canvas-container">
-            <Canvas shadows camera={{ position: [0, 0, 5], fov: 75 }}>
-              <Scene scrollY={scrollY} />
-            </Canvas>
-          </div>
-          
-          <div className="hero-content">
-            <motion.div
-              className="hero-text"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 50 }}
-              transition={{ delay: 2.5, duration: 0.8 }}
-            >
-              <h1>{personalInfo.name}</h1>
-              <h2>{personalInfo.title} @ {personalInfo.university}</h2>
-              
-              <div className="hero-cta">
-                <button 
-                  className="btn-primary"
-                  onClick={() => aboutRef.current.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  About Me
-                </button>
-                <button 
-                  className="btn-secondary"
-                  onClick={() => projectsRef.current.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  My Projects
-                </button>
-              </div>
-            </motion.div>
-            
-            <motion.div 
-              className="scroll-indicator"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: isLoaded ? 1 : 0 }}
-              transition={{ delay: 3, duration: 0.8 }}
-            >
-              <span>Scroll to explore</span>
-              <div className="mouse">
-                <div className="wheel"></div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-        
-        {/* About Section */}
-        <section className="about-section" ref={aboutRef}>
-          <div className="section-container">
-            <motion.div
-              className="about-content"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true, margin: "-100px" }}
-            >
-              <div className="about-text">
-                <h2 className="section-heading">About Me</h2>
-                <p className="bio">{personalInfo.bio}</p>
-                
-                <div className="skill-container">
-                  <h3>My Skills</h3>
-                  <div className="skills">
-                    {personalInfo.skills.map((skill, index) => (
-                      <motion.span 
-                        key={index} 
-                        className="skill-tag"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1, duration: 0.5 }}
-                        viewport={{ once: true }}
-                      >
-                        {skill}
-                      </motion.span>
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="education">
-                  <h3>Education</h3>
-                  <div className="timeline-item">
-                    <div className="timeline-marker"></div>
-                    <div className="timeline-content">
-                      <h4>{personalInfo.university}</h4>
-                      <p>Computer Science, {personalInfo.year}</p>
-                      <span className="timeline-date">2022 - Present</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="about-image">
-                <div className="photo-frame">
-                  <div className="photo">
-                    {/* Replace with your actual photo */}
-                    <img src="/images/profile.png" alt="Your Photo" />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          
-          <div className="geometric-bg">
-            <div className="shape shape-1"></div>
-            <div className="shape shape-2"></div>
-            <div className="shape shape-3"></div>
-          </div>
-        </section>
-        
-        {/* Projects Section */}
-        <section className="projects-section" ref={projectsRef}>
-          <div className="section-container">
-            <motion.h2 
-              className="section-heading text-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-            >
-              My Projects
-            </motion.h2>
-            
-            <div className="projects-grid">
-              {projects.map((project, index) => (
-                <motion.div
-                  key={project.id}
-                  className="project-card"
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.2, duration: 0.8 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  whileHover={{ 
-                    y: -10,
-                    boxShadow: "0 20px 30px rgba(0, 0, 0, 0.2)",
-                    transition: { duration: 0.3 }
-                  }}
-                >
-                  <div className="project-image">
-                    {/* Replace with actual project images */}
-                    <img src={`/images/projects/project${project.id}.png`} alt={project.title} />
-                    <div className="project-overlay">
-                      <span>View Project</span>
-                    </div>
-                  </div>
-                  
-                  <div className="project-info">
-                    <h3>{project.title}</h3>
-                    <p>{project.description}</p>
-                    
-                    <div className="project-tech">
-                      {project.tech.map((tech) => (
-                        <span key={tech} className="tech-tag">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-            
-            <motion.div 
-              className="projects-cta"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <Link href="/projects" className="btn-primary">
-                View All Projects
+        {isMounted && <ThreeJSHero mouse={mouse} />}
+
+        <div className="hero-content">
+          <motion.div className="hero-text" style={{ y: titleY }}>
+            <h1 className="hero-title">
+              <span className="title-accent">{'<'}</span>
+              Malinda Kawshalya
+              <span className="title-accent">{'/>'}</span>
+            </h1>
+            <h2 className="hero-subtitle">Cosmic Web Architect</h2>
+            <p className="hero-description">
+              Crafting immersive digital galaxies with cutting-edge technology
+            </p>
+            <div className="hero-buttons">
+              <Link href="/projects" className="btn btn-primary">
+                Explore Universe
               </Link>
+              <Link href="/contact" className="btn btn-secondary">
+                Connect Now
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="scroll-indicator">
+          <div className="mouse">
+            <div className="wheel"></div>
+          </div>
+          <div className="arrow-container">
+            <div className="arrow"></div>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Use client-side only GSAP component */}
+      {isMounted && <GSAPComponent />}
+
+      {/* About Section */}
+      <section className="about-section section" id="about">
+        <div className="container">
+          <motion.div
+            className="section-title"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2>
+              <span className="title-accent">{'<'}</span> About Me{' '}
+              <span className="title-accent">{'/>'}</span>
+            </h2>
+          </motion.div>
+
+          <div className="about-content">
+            <motion.div
+              className="about-text"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <p>
+                Greetings, cosmic traveler! I'm{' '}
+                <span className="highlight">Malinda Kawshalya</span>, a web developer
+                orbiting the intersection of technology and creativity.
+              </p>
+              <p>
+                My mission: to craft stellar web experiences using modern frameworks
+                and 3D graphics, creating digital universes that captivate and inspire.
+              </p>
+              <p>
+                When not navigating the code cosmos, I'm exploring new tech constellations,
+                contributing to open-source galaxies, or stargazing at the wonders of the universe.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="about-image"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <div className="profile-image-container">
+                <div className="profile-image-placeholder">
+                  <div className="avatar-placeholder">MK</div>
+                </div>
+                <div className="tech-orbit">
+                  <div className="tech-planet p1">
+                    <span>React</span>
+                  </div>
+                  <div className="tech-planet p2">
+                    <span>Three.js</span>
+                  </div>
+                  <div className="tech-planet p3">
+                    <span>Next.js</span>
+                  </div>
+                  <div className="tech-planet p4">
+                    <span>GSAP</span>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </div>
-        </section>
-        
-        {/* Contact Section */}
-        <section className="contact-section">
-          <motion.div 
-            className="contact-card"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section className="skills-section section" id="skills">
+        <div className="container">
+          <motion.div
+            className="section-title"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            viewport={{ once: true, margin: "-100px" }}
           >
-            <h2>Let's Connect</h2>
-            <p>I'm currently looking for internship and collaboration opportunities</p>
-            
-            <div className="contact-links">
-              <a href="mailto:youremail@example.com" className="contact-link email">
-                youremail@example.com
-              </a>
-              <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="contact-link github">
-                GitHub
-              </a>
-              <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="contact-link linkedin">
-                LinkedIn
-              </a>
-            </div>
-            
-            <Link href="/contact" className="btn-secondary">
-              Get In Touch
+            <h2>
+              <span className="title-accent">{'<'}</span> Skills{' '}
+              <span className="title-accent">{'/>'}</span>
+            </h2>
+          </motion.div>
+
+          <div className="skills-grid">
+            <SkillItem icon="⚛️" name="React" delay={0.1} />
+            <SkillItem icon="🔷" name="TypeScript" delay={0.2} />
+            <SkillItem icon="📱" name="Responsive Design" delay={0.3} />
+            <SkillItem icon="🎨" name="Tailwind CSS" delay={0.4} />
+            <SkillItem icon="🌐" name="Three.js" delay={0.5} />
+            <SkillItem icon="⚡" name="Next.js" delay={0.6} />
+            <SkillItem icon="🎥" name="GSAP" delay={0.7} />
+            <SkillItem icon="🖥️" name="WebGL" delay={0.8} />
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Projects Section */}
+      <section className="projects-section section" id="projects">
+        <div className="container">
+          <motion.div
+            className="section-title"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2>
+              <span className="title-accent">{'<'}</span> Featured Projects{' '}
+              <span className="title-accent">{'/>'}</span>
+            </h2>
+          </motion.div>
+
+          <div className="projects-grid">
+            <ProjectCard
+              title="Galaxy Explorer"
+              description="Interactive 3D galaxy visualization with real-time star field"
+              link="/projects/galaxy-explorer"
+              delay={0.1}
+            />
+            <ProjectCard
+              title="Cosmic Dashboard"
+              description="Advanced admin dashboard with WebGL visualizations"
+              link="/projects/cosmic-dashboard"
+              delay={0.3}
+            />
+            <ProjectCard
+              title="Space Tourism"
+              description="Immersive space tourism experience with VR support"
+              link="/projects/space-tourism"
+              delay={0.5}
+            />
+          </div>
+
+          <motion.div
+            className="view-all-projects"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+          >
+            <Link href="/projects" className="btn btn-secondary">
+              Explore All Projects
             </Link>
           </motion.div>
-        </section>
-      </div>
+        </div>
+      </section>
+
+      {/* Contact CTA Section */}
+      <section className="contact-cta-section section">
+        <div className="container">
+          <motion.div
+            className="cta-content"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <h2>Ready to launch your cosmic project?</h2>
+            <p>Let's create a stellar digital experience together</p>
+            <Link href="/contact" className="btn btn-primary btn-large">
+              Start Mission
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      
     </>
   );
 }
