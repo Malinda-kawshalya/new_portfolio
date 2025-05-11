@@ -392,10 +392,14 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <div className="profile-image-container">
-                <div className="profile-image-placeholder">
-                  <div className="avatar-placeholder">MK</div>
-                </div>
+<div className="profile-image-container">
+  <div className="profile-image-placeholder">
+    <img 
+      src="/images/malinda.jpg" 
+      alt="Malinda Kawshalya" 
+      className="profile-photo"
+    />
+  </div>
                 <div className="tech-orbit">
                   <div className="tech-planet p1">
                     <span>React</span>
