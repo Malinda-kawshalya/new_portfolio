@@ -402,17 +402,18 @@ export default function Home() {
   </div>
                 <div className="tech-orbit">
                   <div className="tech-planet p1">
-                    <span>React</span>
+                    <span>Java Script</span>
                   </div>
                   <div className="tech-planet p2">
-                    <span>Three.js</span>
+                    <span>JS</span>
                   </div>
                   <div className="tech-planet p3">
-                    <span>Next.js</span>
+                    <span>Flutter</span>
                   </div>
                   <div className="tech-planet p4">
-                    <span>GSAP</span>
+                    <span>Java </span>
                   </div>
+                  
                 </div>
               </div>
             </motion.div>
@@ -438,12 +439,15 @@ export default function Home() {
           <div className="skills-grid">
             <SkillItem icon="⚛️" name="React" delay={0.1} />
             <SkillItem icon="🔷" name="TypeScript" delay={0.2} />
-            <SkillItem icon="📱" name="Responsive Design" delay={0.3} />
-            <SkillItem icon="🎨" name="Tailwind CSS" delay={0.4} />
+            <SkillItem icon="🟩" name="Node.js" delay={0.3} />
+            <SkillItem icon="☕" name="Java" delay={0.4} />
             <SkillItem icon="🌐" name="Three.js" delay={0.5} />
             <SkillItem icon="⚡" name="Next.js" delay={0.6} />
-            <SkillItem icon="🎥" name="GSAP" delay={0.7} />
-            <SkillItem icon="🖥️" name="WebGL" delay={0.8} />
+            <SkillItem icon="🅰️" name="Angular" delay={0.7} />
+            <SkillItem icon="#️⃣" name="C#" delay={0.8} />
+            <SkillItem icon="🎨" name="Figma" delay={0.9} />
+            <SkillItem icon="🐍" name="Python" delay={1.0} />
+
           </div>
         </div>
       </section>
@@ -465,13 +469,13 @@ export default function Home() {
 
           <div className="projects-grid">
             <ProjectCard
-              title="Galaxy Explorer"
+              title="Event Guru"
               description="Interactive 3D galaxy visualization with real-time star field"
               link="/projects/galaxy-explorer"
               delay={0.1}
             />
             <ProjectCard
-              title="Cosmic Dashboard"
+              title="Nextcrypt"
               description="Advanced admin dashboard with WebGL visualizations"
               link="/projects/cosmic-dashboard"
               delay={0.3}
