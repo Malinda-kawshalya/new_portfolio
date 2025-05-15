@@ -134,27 +134,27 @@ const Header = () => {
               </Link>
             </motion.li>
 
-            <motion.li
-              className="menu-item"
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-            >
-            <Link href="/projects" className="menu-link">
-                Projects
-              </Link>
-            </motion.li>
+<motion.li
+  className="menu-item"
+  initial={{ opacity: 0, x: -10 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.5, delay: 0.5 }} // Changed from 0.6
+>
+  <Link href="/projects" className="menu-link">
+    Projects
+  </Link>
+</motion.li>
 
-            <motion.li
-              className="menu-item"
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-            >
-              <Link href="/contact" className="menu-link">
-                Contact
-              </Link>
-            </motion.li>
+<motion.li
+  className="menu-item"
+  initial={{ opacity: 0, x: -10 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.5, delay: 0.6 }}
+>
+  <Link href="/blog" className="menu-link">
+    Blog
+  </Link>
+</motion.li>
           </ul>
           <motion.div
             className="header-actions"

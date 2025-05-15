@@ -8,6 +8,7 @@ import * as THREE from 'three';
 import dynamic from 'next/dynamic';
 import Footer from '../components/layout/Footer';
 import '../styles/home.css';
+import ServiceCard from '@/components/ui/ServiceCard';
 
 // Dynamically import GSAP to avoid SSR issues
 const GSAPComponent = dynamic(() => 
@@ -452,41 +453,59 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Projects Section */}
-      <section className="projects-section section" id="projects">
-        <div className="container">
-          <motion.div
-            className="section-title"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2>
-              <span className="title-accent">{'<'}</span> Featured Projects{' '}
-              <span className="title-accent">{'/>'}</span>
-            </h2>
-          </motion.div>
+{/* Services Section */}
+<section className="services-section section" id="services">
+  <div className="container">
+    <motion.div
+      className="section-title"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+    >
+      <h2>
+        <span className="title-accent">{'<'}</span> My Services{' '}
+        <span className="title-accent">{'/>'}</span>
+      </h2>
+    </motion.div>
 
-          <div className="projects-grid">
-            <ProjectCard
-              title="Event Guru"
-              description="Interactive 3D galaxy visualization with real-time star field"
-              link="/projects/galaxy-explorer"
-              delay={0.1}
-            />
-            <ProjectCard
-              title="Nextcrypt"
-              description="Advanced admin dashboard with WebGL visualizations"
-              link="/projects/cosmic-dashboard"
-              delay={0.3}
-            />
-            <ProjectCard
-              title="Space Tourism"
-              description="Immersive space tourism experience with VR support"
-              link="/projects/space-tourism"
-              delay={0.5}
-            />
-          </div>
+<div className="services-grid">
+  <ServiceCard
+    icon="🚀"
+    title="Web Development"
+    description="Building responsive, high-performance websites and web applications with cutting-edge technologies."
+    delay={0.1}
+  />
+  <ServiceCard
+    icon="🎨"
+    title="UI/UX Design"
+    description="Creating intuitive, engaging user interfaces with focus on user experience and modern design trends."
+    delay={0.3}
+  />
+  <ServiceCard
+    icon="📝"
+    title="Assignment Writing"
+    description="Professional academic writing services with thorough research and proper formatting for all educational levels."
+    delay={0.5}
+  />
+  <ServiceCard
+    icon="💼"
+    title="Portfolio Design"
+    description="Creating stunning, personalized portfolios that showcase your work and help you stand out in your industry."
+    delay={0.7}
+  />
+  <ServiceCard
+    icon="📱"
+    title="Mobile Development"
+    description="Developing cross-platform mobile applications with Flutter and React Native for seamless user experiences."
+    delay={0.9}
+  />
+  <ServiceCard
+    icon="📊"
+    title="Digital Marketing"
+    description="Strategic digital marketing services to increase your online presence, engage your audience, and drive conversions."
+    delay={1.1}
+  />
+</div>
 
           <motion.div
             className="view-all-projects"
@@ -495,7 +514,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.7 }}
           >
             <Link href="/projects" className="btn btn-secondary">
-              Explore All Projects
+              Explore Recent Projects
             </Link>
           </motion.div>
         </div>
