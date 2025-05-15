@@ -133,46 +133,18 @@ const Header = () => {
                 About
               </Link>
             </motion.li>
+
             <motion.li
-              className="menu-item has-dropdown"
+              className="menu-item"
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
             >
-              <button
-                className="dropdown-toggle"
-                onClick={toggleDropdown}
-                aria-expanded={dropdownOpen}
-              >
+            <Link href="/projects" className="menu-link">
                 Projects
-                <svg
-                  className={`dropdown-icon ${dropdownOpen ? 'rotated' : ''}`}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </button>
-              <ul className={`dropdown-menu ${dropdownOpen ? 'active' : ''}`}>
-                <li className="dropdown-item">
-                  <Link href="/projects/web" className="dropdown-link">
-                    Web Projects
-                  </Link>
-                </li>
-                <li className="dropdown-item">
-                  <Link href="/projects/3d" className="dropdown-link">
-                    3D Projects
-                  </Link>
-                </li>
-                <li className="dropdown-item">
-                  <Link href="/projects/ar" className="dropdown-link">
-                    AR Projects
-                  </Link>
-                </li>
-              </ul>
+              </Link>
             </motion.li>
+
             <motion.li
               className="menu-item"
               initial={{ opacity: 0, x: -10 }}
@@ -190,6 +162,7 @@ const Header = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.7 }}
           >
+          
             <Link href="/contact" className="contact-button">
               Get in Touch
             </Link>
