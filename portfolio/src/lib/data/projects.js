@@ -9,39 +9,39 @@ export const projects = [
   },
   {
     id: 2,
-    title: "Cosmic Dashboard",
-    description: "Advanced analytics dashboard with real-time data visualization for space mission metrics and telemetry data.",
+    title: "Event Guru",
+    description: "Ticketing platform for event browsing, booking, and organizer management",
     image: "/images/projects/cosmic-dashboard.jpg",
     link: "/projects/cosmic-dashboard",
-    tech: ["Next.js", "D3.js", "Firebase"]
+    tech: ["Node.js", "React.js", "Express.js", "MongoDB"]
   },
   {
     id: 3,
-    title: "Nebula Social",
-    description: "Space-themed social network platform where astronomers and enthusiasts can share discoveries and celestial photography.",
+    title: "Antiqua",
+    description: "Online auction site for antiques with real-time bidding and auction contro",
     image: "/images/projects/nebula-social.jpg",
     link: "/projects/nebula-social",
     tech: ["React", "Node.js", "MongoDB"]
   },
   {
     id: 4,
-    title: "Orbital Commerce",
-    description: "E-commerce platform with 3D product visualization and AR try-on features for space memorabilia and telescopes.",
+    title: "Shopping Site",
+    description: "E-commerce platform with user authentication, admin panel, and responsive design.",
     image: "/images/projects/orbital-commerce.jpg",
     link: "/projects/orbital-commerce",
-    tech: ["Next.js", "Three.js", "Stripe"]
+    tech: ["JAVA", "HTML", "Css", "JavaScript","Tomcat"]
   },
   {
     id: 5,
-    title: "SpaceX Launch Tracker",
-    description: "Real-time tracker for SpaceX launches with countdown timers, mission details, and interactive rocket models.",
+    title: " LMS",
+    description: "Academic tool for managing assignments, grading, and user roles.",
     image: "/images/projects/spacex-tracker.jpg",
     link: "/projects/spacex-tracker",
-    tech: ["React", "Node.js", "WebSockets"]
+    tech: ["HTML", "PHP", "SQL", "JavaScript"]
   },
   {
     id: 6,
-    title: "Astro Weather",
+    title: "BARZA APP",
     description: "Weather app that correlates weather patterns with astronomical events and provides stargazing conditions forecasts.",
     image: "/images/projects/astro-weather.jpg",
     link: "/projects/astro-weather",

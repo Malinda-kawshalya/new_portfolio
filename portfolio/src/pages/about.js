@@ -71,14 +71,15 @@ export default function About() {
           />
             </motion.div>
             <h1>About Me</h1>
-            <p>
-          I'm a passionate developer exploring the universe of code. My mission is
-          to create stellar applications that push the boundaries of technology
-          and design. With a love for learning and a curiosity for the cosmos, I
-          craft immersive digital experiences that resonate with users. Join me on
-          this galactic journey as I share insights, projects, and discoveries
-          through my portfolio.
-            </p>
+<p>
+  I’m a full stack developer fueled by curiosity and driven by creativity.  
+  Navigating the ever-expanding universe of code, I build immersive, end-to-end  
+  digital experiences that blend intuitive design with robust functionality.  
+  Passionate about learning and innovating, I craft solutions that not only  
+  perform — but inspire. Join me as I explore new technologies, launch ambitious  
+  projects, and share my journey through this evolving digital galaxy.
+</p>
+
           </div>
         </motion.section>
 
