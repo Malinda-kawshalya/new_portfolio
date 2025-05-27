@@ -288,9 +288,9 @@ export default function Home() {
               Malinda Kawshalya
               <span className="title-accent">{'/>'}</span>
             </h1>
-            <h2 className="hero-subtitle">Cosmic Web Architect</h2>
+            <h2 className="hero-subtitle">FULL STACK DEVELOPER</h2>
             <p className="hero-description">
-              Crafting immersive digital galaxies with cutting-edge technology
+             " Designs the Face, Powers the Brain, Delivers the Experience "
             </p>
             <div className="hero-buttons">
               <Link href="/projects" className="btn btn-primary">
@@ -338,19 +338,20 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <p>
-                Greetings, cosmic traveler! I'm{' '}
-                <span className="highlight">Malinda Kawshalya</span>, a web developer
-                orbiting the intersection of technology and creativity.
-              </p>
-              <p>
-                My mission: to craft stellar web experiences using modern frameworks
-                and 3D graphics, creating digital universes that captivate and inspire.
-              </p>
-              <p>
-                When not navigating the code cosmos, I'm exploring new tech constellations,
-                contributing to open-source galaxies, or stargazing at the wonders of the universe.
-              </p>
+<p>
+  Greetings, digital explorer! I'm{' '}
+  <span className="highlight">Malinda Kawshalya</span>, a full stack developer  
+  charting bold paths across the front-end and back-end galaxies.
+</p>
+<p>
+  My mission: to engineer dynamic, user-driven web applications that merge elegant design  
+  with powerful functionality — from seamless UIs to secure, scalable systems.
+</p>
+<p>
+  When I’m not coding across the stack, I’m experimenting with new frameworks,  
+  contributing to innovative projects, or fine-tuning the future one feature at a time.
+</p>
+
             </motion.div>
 
             <motion.div
@@ -495,7 +496,7 @@ export default function Home() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
           >
-            <h2>Ready to launch your cosmic project?</h2>
+            <h2>Ready to launch your  project?</h2>
             <p>Let's create a stellar digital experience together</p>
             <Link href="/contact" className="btn btn-primary btn-large">
               Start Mission
