@@ -1,0 +1,6 @@
+name = "portfolio"
+compatibility_date = "2025-05-27"
+compatibility_flags = ["nodejs_compat"]
+
+[site]
+bucket = "./out"
