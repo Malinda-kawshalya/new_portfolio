@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useGLTF, Stars, OrbitControls, Environment } from '@react-three/drei';
+import { Stars, OrbitControls, Environment } from '@react-three/drei';
 import * as THREE from 'three';
 import dynamic from 'next/dynamic';
 import Footer from '../components/layout/Footer';
@@ -16,41 +16,7 @@ const GSAPComponent = dynamic(() =>
   { ssr: false }
 );
 
-// Enhanced Space Station component
-function SpaceStation({ mouse }) {
-  const mesh = useRef();
-  const group = useRef();
-  const { scene } = useGLTF('/models/space_station.glb');
-  
-  useFrame((state, delta) => {
-    const t = state.clock.getElapsedTime();
-    group.current.rotation.y += delta * 0.1;
-    group.current.rotation.x = THREE.MathUtils.lerp(
-      group.current.rotation.x,
-      mouse.current.y * 0.2,
-      0.1
-    );
-    group.current.rotation.z = THREE.MathUtils.lerp(
-      group.current.rotation.z,
-      mouse.current.x * 0.2,
-      0.1
-    );
-    
-    // Animate individual parts
-    if (mesh.current && mesh.current.children) {
-      mesh.current.children.forEach((child, i) => {
-        child.rotation.y += Math.sin(t + i) * 0.01;
-      });
-    }
-  });
 
-  return (
-    <group ref={group} scale={[0.5, 0.5, 0.5]}>
-      <primitive ref={mesh} object={scene} />
-      <pointLight intensity={2} position={[5, 5, 5]} color="#00ffcc" />
-    </group>
-  );
-}
 
 // Enhanced Star Field with dynamic movement
 function StarField({ mouse }) {
@@ -243,7 +209,7 @@ const Scene = ({ mouse }) => {
       <ambientLight intensity={0.8} />
       <directionalLight position={[10, 10, 5]} intensity={1.5} />
       <Suspense fallback={null}>
-        <SpaceStation mouse={mouse} />
+      <pointLight position={[5, 5, 5]} intensity={2} color="#00ffcc" />  
       </Suspense>
       <StarField mouse={mouse} />
       <FloatingParticles mouse={mouse} />
