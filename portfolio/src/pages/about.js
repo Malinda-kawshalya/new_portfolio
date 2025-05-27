@@ -111,14 +111,6 @@ export default function About() {
           ))}
         </div>
       </section>
-
-      {/* Footer */}
-      <footer>
-        <p>
-          © 2025 My Cosmic Portfolio. All rights reserved.{' '}
-          <a href="/contact">Contact Me</a>
-        </p>
-      </footer>
     </>
   );
 }
