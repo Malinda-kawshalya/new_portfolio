@@ -42,9 +42,9 @@ export const projects = [
   {
     id: 6,
     title: "BARZA APP",
-    description: "Weather app that correlates weather patterns with astronomical events and provides stargazing conditions forecasts.",
+    description: "Barter app with Star Points system for cashless item and service exchange",
     image: "/images/projects/astro-weather.jpg",
     link: "/projects/astro-weather",
-    tech: ["React", "Next.js", "API Integration"]
+    tech: ["Flutter", "Firebase", ]
   }
 ];
