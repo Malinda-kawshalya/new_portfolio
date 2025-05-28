@@ -1,6 +1,4 @@
-name = "portfolio"
-compatibility_date = "2025-05-27"
-compatibility_flags = ["nodejs_compat"]
 
-[site]
-bucket = "./out"
+name = "portfolio"
+main = "src/pages/_app.js"  
+compatibility_date = "2025-05-28"
