@@ -1,5 +1,5 @@
 {
-  "name": "your-worker-name",
+  "name": "portfolio",
   "main": "src/pages/_app.js", // or index.js
   "compatibility_date": "2025-05-28"
 }
