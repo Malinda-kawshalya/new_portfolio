@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic';
 import Footer from '../components/layout/Footer';
 import '../styles/home.css';
 import ServiceCard from '@/components/ui/ServiceCard';
+import Image from 'next/image';
 
 // Dynamically import GSAP to avoid SSR issues
 const GSAPComponent = dynamic(() => 
@@ -360,14 +361,16 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-<div className="profile-image-container">
+
   <div className="profile-image-placeholder">
-    <img 
-      src="/images/malinda.jpg" 
-      alt="Malinda Kawshalya" 
-      className="profile-photo"
-    />
-  </div>
+<Image 
+  src="/images/profile.jpg" 
+  alt="Profile" 
+  className="profile-image"
+  width={300} 
+  height={300}
+  priority
+/>
                 <div className="tech-orbit">
                   <div className="tech-planet p1">
                     <span>Java Script</span>
