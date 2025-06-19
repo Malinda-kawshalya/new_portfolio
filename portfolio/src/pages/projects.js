@@ -61,7 +61,7 @@ export default function Projects() {
         className="cosmic-hero relative pt-40 pb-24 px-4 md:px-8 overflow-hidden"
       >
         
-        <div className="hero-rings"></div>
+        
 
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
